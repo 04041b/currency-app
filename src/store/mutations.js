@@ -27,7 +27,7 @@ const mutatsions = {
   },
   updateRates(state, data) {
     state.coins = state.coins.map((coin) => {
-      if (state.enabledCoins.includes(coin.symbol)) {
+      if (Number(data[coin.symbol]) > 0) {
         coin.rate = data[coin.symbol];
       }
       return coin;

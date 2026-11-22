@@ -3,7 +3,9 @@ const getters = {
     return state.coins.find((coin) => coin.symbol === symbol);
   },
   getEnableCoinsData: ({ coins, enabledCoins }) => {
-    return coins.filter((coin) => enabledCoins.includes(coin.symbol));
+    return enabledCoins
+      .map((symbol) => coins.find((coin) => coin.symbol === symbol))
+      .filter(Boolean);
   },
   getAllCoinsData: ({ searchKeyword, coins, enabledCoins }) => {
     searchKeyword = searchKeyword.toLowerCase();

@@ -1,4 +1,12 @@
 const path = require("path");
+const crypto = require("crypto");
+
+// Webpack 4 hashes with MD4, which OpenSSL 3 (Node.js 17+) no longer provides.
+// Swap it for SHA-256 so the app builds on current Node versions.
+const origCreateHash = crypto.createHash;
+crypto.createHash = (algorithm, ...args) =>
+  origCreateHash(algorithm === "md4" ? "sha256" : algorithm, ...args);
+
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
